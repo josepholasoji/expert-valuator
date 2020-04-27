@@ -19,11 +19,15 @@ from sklearn.model_selection import train_test_split
 
 # Ignore all GPUs, tf random forest does not benefit from it.
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
+# os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 # Import data
-generator.generate()
-data = pd.read_csv('./truth_template_dataset.csv', index_col=0, skiprows=range(1))
+try:
+    data = pd.read_csv('./truth_template_dataset.csv', index_col=0, skiprows=range(1))
+except: 
+    generator.generate()
+    data = pd.read_csv('./truth_template_dataset.csv', index_col=0, skiprows=range(1))
+
 
 #Extract feature and target np arrays (inputs for placeholders)
 input_x = data.iloc[:, 0:-1].values
@@ -77,3 +81,15 @@ for i in range(1, num_steps + 1):
 
 # Test Model
 print("Test Accuracy:", sess.run(accuracy_op, feed_dict={X: X_test, Y: y_test}))
+
+
+#do a prediction
+y_sample =  np.array([1,2,3,4])
+x_sample =  np.array([[724,11,0,3,360,1]])
+#array([321,   1,   1,  73,  35,   5], dtype=int64)
+print("Test Accuracy - intermediate:", sess.run(accuracy_op, feed_dict={X: x_sample, Y: np.array([1])}))
+print("Test Accuracy - novice:", sess.run(accuracy_op, feed_dict={X: x_sample, Y: np.array([2])}))
+print("Test Accuracy - disqualified:", sess.run(accuracy_op, feed_dict={X: x_sample, Y: np.array([3])}))
+print("Test Accuracy - expert:", sess.run(accuracy_op, feed_dict={X: x_sample, Y: np.array([4])}))
+
+print("done")
