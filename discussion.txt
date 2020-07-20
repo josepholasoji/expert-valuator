@@ -1,0 +1,9 @@
+1. data-preprocessing
+2. simulated data for training...
+3. features
+pull github records
+
+
+
+- use two or more algorithms 
+- github data
