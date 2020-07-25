@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-Created on Wed Apr 25 19:09:20 2018
-@author: Muhammad Salek Ali
-"""
-
 # Random Forest Classification on Tensorflow
 # Import libraries
 import gen as generator
@@ -19,7 +14,7 @@ from sklearn.model_selection import train_test_split
 
 # Ignore all GPUs, tf random forest does not benefit from it.
 import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 # Import data
 try:
